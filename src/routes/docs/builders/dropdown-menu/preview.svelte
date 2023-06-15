@@ -15,10 +15,15 @@
 	<div class="menu" {...$menu}>
 		<div class="item" {...$item({ value: 'newTab' })}>New Tab</div>
 		<div class="item" {...$item({ value: 'newWindow' })}>New Window</div>
-		<div class="item" {...$subTrigger({ menuId: '123' })}>More Tools</div>
-		<div class="menu" {...$subMenu({ id: '123' })}>
+		<div class="item" {...$subTrigger({ triggerFor: 'submenu-1' })}>More Tools</div>
+		<div class="menu" {...$subMenu({ id: 'submenu-1' })}>
 			<div class="item" {...$item({ value: 'newTab' })}>New Tab</div>
 			<div class="item" {...$item({ value: 'newWindow' })}>New Window</div>
+			<div class="item" {...$subTrigger({ triggerFor: 'submenu-2' })}>Even More</div>
+			<div class="menu" {...$subMenu({ id: 'submenu-2' })}>
+				<div class="item" {...$item({ value: 'newTab' })}>New Tool</div>
+				<div class="item" {...$item({ value: 'newWindow' })}>New Shiny Thing</div>
+			</div>
 		</div>
 		<div class="item" {...$item({ value: 'showBookmarks' })}>Show Bookmarks</div>
 		<div {...$arrow} />
