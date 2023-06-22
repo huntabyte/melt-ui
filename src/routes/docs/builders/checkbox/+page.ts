@@ -1,7 +1,6 @@
 import type { PreviewProps } from '$routes/(components)';
 import { Tailwind } from './(tailwind)';
 import exampleString from './(tailwind)/code.svelte?raw';
-
 import Example from './example.svelte';
 
 export async function load({ fetch }) {
