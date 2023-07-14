@@ -50,8 +50,8 @@
 	<div class="separator" {...$separator} />
 	<div
 		class="item"
-		{...$checkboxItem}
-		use:checkboxItem={{ checked: settingsSync }}
+		{...$checkboxItem({ checked: settingsSync })}
+		use:$checkboxItem.action
 	>
 		<div class="check">
 			{#if $settingsSync}

@@ -21,6 +21,7 @@ import {
 	removeScroll,
 	sleep,
 	styleToString,
+	builderFn,
 } from '$lib/internal/helpers';
 import type { Defaults, TextDirection } from '$lib/internal/types';
 import { onMount, tick } from 'svelte';
@@ -366,79 +367,83 @@ export function createMenuBuilder(opts: MenuBuilderOptions) {
 		checked: writable(false),
 	};
 
-	const checkboxItem = builder(name('checkbox-item'), {
-		returned: () => ({
-			role: 'menuitemcheckbox',
-			tabindex: -1,
-			'data-orientation': 'vertical',
-		}),
-		action: (node: HTMLElement, params: CheckboxItemProps) => {
-			setMeltMenuAttribute(node, selector);
-			applyAttrsIfDisabled(node);
-			const { checked, onSelect } = { ...checkboxItemDefaults, ...params };
-			const $checked = get(checked);
-			node.setAttribute('aria-checked', isIndeterminate($checked) ? 'mixed' : String($checked));
-			node.setAttribute('data-state', getCheckedState($checked));
+	const checkboxItem = builderFn(name('checkbox-item'), {
+		returned: () => {
+			return (props: CheckboxItemProps) => {
+				return {
+					role: 'menuitemcheckbox',
+					tabindex: -1,
+					'data-orientation': 'vertical',
+				};
+			};
+		},
+		action: (props: CheckboxItemProps) => {
+			return (node: HTMLElement) => {
+				console.log('Action props baby', props);
+				setMeltMenuAttribute(node, selector);
+				applyAttrsIfDisabled(node);
+				const $checked = get(props.checked);
+				node.setAttribute('aria-checked', isIndeterminate($checked) ? 'mixed' : String($checked));
+				node.setAttribute('data-state', getCheckedState($checked));
 
-			const unsub = executeCallbacks(
-				addEventListener(node, 'pointerdown', (e) => {
-					const itemElement = e.currentTarget;
-					if (!isHTMLElement(itemElement)) return;
-					if (isElementDisabled(itemElement)) {
-						e.preventDefault();
-						return;
-					}
-				}),
-				addEventListener(node, 'click', (e) => {
-					const itemElement = e.currentTarget;
-					if (!isHTMLElement(itemElement)) return;
-					if (isElementDisabled(itemElement)) {
-						e.preventDefault();
-						return;
-					}
+				const unsub = executeCallbacks(
+					addEventListener(node, 'pointerdown', (e) => {
+						const itemElement = e.currentTarget;
+						if (!isHTMLElement(itemElement)) return;
+						if (isElementDisabled(itemElement)) {
+							e.preventDefault();
+							return;
+						}
+					}),
+					addEventListener(node, 'click', (e) => {
+						const itemElement = e.currentTarget;
+						if (!isHTMLElement(itemElement)) return;
+						if (isElementDisabled(itemElement)) {
+							e.preventDefault();
+							return;
+						}
 
-					if (e.defaultPrevented) {
+						if (e.defaultPrevented) {
+							if (!isHTMLElement(itemElement)) return;
+
+							handleRovingFocus(itemElement);
+							return;
+						}
+						props.checked.update((prev) => {
+							if (isIndeterminate(prev)) return true;
+							return !prev;
+						});
+
+						rootOpen.set(false);
+					}),
+					addEventListener(node, 'keydown', (e) => {
+						onItemKeyDown(e);
+					}),
+					addEventListener(node, 'pointermove', (e) => {
+						const itemElement = e.currentTarget;
 						if (!isHTMLElement(itemElement)) return;
 
-						handleRovingFocus(itemElement);
-						return;
-					}
-					onSelect?.(e);
-					if (e.defaultPrevented) return;
-					checked.update((prev) => {
-						if (isIndeterminate(prev)) return true;
-						return !prev;
-					});
+						if (isElementDisabled(itemElement)) {
+							onItemLeave(e);
+							return;
+						}
 
-					rootOpen.set(false);
-				}),
-				addEventListener(node, 'keydown', (e) => {
-					onItemKeyDown(e);
-				}),
-				addEventListener(node, 'pointermove', (e) => {
-					const itemElement = e.currentTarget;
-					if (!isHTMLElement(itemElement)) return;
+						onMenuItemPointerMove(e);
+					}),
+					addEventListener(node, 'pointerleave', (e) => {
+						onMenuItemPointerLeave(e);
+					}),
+					addEventListener(node, 'focusin', (e) => {
+						onItemFocusIn(e);
+					}),
+					addEventListener(node, 'focusout', (e) => {
+						onItemFocusOut(e);
+					})
+				);
 
-					if (isElementDisabled(itemElement)) {
-						onItemLeave(e);
-						return;
-					}
-
-					onMenuItemPointerMove(e);
-				}),
-				addEventListener(node, 'pointerleave', (e) => {
-					onMenuItemPointerLeave(e);
-				}),
-				addEventListener(node, 'focusin', (e) => {
-					onItemFocusIn(e);
-				}),
-				addEventListener(node, 'focusout', (e) => {
-					onItemFocusOut(e);
-				})
-			);
-
-			return {
-				destroy: unsub,
+				return {
+					destroy: unsub,
+				};
 			};
 		},
 	});

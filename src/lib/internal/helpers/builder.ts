@@ -1,6 +1,13 @@
 import { onDestroy } from 'svelte';
 import type { Action } from 'svelte/action';
-import { derived, type Readable, type Subscriber, type Unsubscriber } from 'svelte/store';
+import {
+	derived,
+	writable,
+	type Readable,
+	type Subscriber,
+	type Unsubscriber,
+	get,
+} from 'svelte/store';
 import { isBrowser, noop } from '.';
 
 export function getElementByMeltId(id: string) {
@@ -215,6 +222,79 @@ export function builder<
 	})() as BuilderStore<S, A, R, Name>;
 
 	const actionFn = (action ??
+		(() => {
+			/** noop */
+		})) as A & { subscribe: typeof derivedStore.subscribe };
+	actionFn.subscribe = derivedStore.subscribe;
+
+	return actionFn;
+}
+
+export function builderFn<
+	S extends Stores | undefined,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	A extends Action<any, any>,
+	R extends BuilderCallback<S>,
+	Name extends string
+>(name: Name, args?: BuilderArgs<S, A, R>): BuilderReturn<S, A, R, Name> {
+	const { stores, action, returned } = args ?? {};
+	const actionStore = writable<A | null>(null);
+
+	const derivedStore = (() => {
+		if (stores && returned) {
+			// If stores are provided, create a derived store from them
+			return derived(stores, (values) => {
+				const result = returned(values);
+				if (isFunctionWithParams(result)) {
+					const fn = (...args: Parameters<typeof result>) => {
+						return hiddenAction({
+							...result(...args),
+							[`data-melt-${name}`]: '',
+							action: action ?? noop,
+						});
+					};
+					fn.action = action ?? noop;
+					return fn;
+				}
+
+				return hiddenAction({
+					...result,
+					[`data-melt-${name}`]: '',
+					action: action ?? noop,
+				});
+			});
+		} else {
+			// If stores are not provided, return a lightable store, for consistency
+			return derived(actionStore, ($actionStore) => {
+				// If stores are not provided, return a lightable store, for consistency
+				const returnedFn = returned as (() => R) | undefined;
+				const result = returnedFn?.();
+				if (isFunctionWithParams(result)) {
+					const fn = (...args: Parameters<typeof result>) => {
+						if ($actionStore === null) {
+							actionStore.set(action?.(...args));
+						}
+
+						return hiddenAction({
+							...result(...args),
+							[`data-melt-${name}`]: '',
+							action: $actionStore ?? noop,
+						});
+					};
+					fn.action = $actionStore ?? noop;
+					return fn;
+				}
+
+				return hiddenAction({
+					...result,
+					[`data-melt-${name}`]: '',
+					action: action ?? noop,
+				});
+			});
+		}
+	})() as BuilderStore<S, A, R, Name>;
+
+	const actionFn = (get(actionStore) ??
 		(() => {
 			/** noop */
 		})) as A & { subscribe: typeof derivedStore.subscribe };
