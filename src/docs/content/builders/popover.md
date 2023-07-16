@@ -11,6 +11,23 @@ description: Displays rich content in a portal, triggered by a button.
 
 ## Anatomy
 
+At a high level, the minimal anatomy of a popover looks like this:
+
+```svelte
+<script lang="ts">
+  import { createPopover } from '@melt-ui/svelte'
+  const { trigger, content, arrow, close } = createPopover()
+</script>
+
+<button melt={$trigger}> Open </button>
+
+<div melt={$content}>
+  <div melt={$arrow} />
+  <div>Your content goes here.</div>
+  <button melt={$close}> Optional close button </button>
+</div>
+```
+
 - **Trigger**: The button(s) which open/close the popover.
 - **Content**: The content area viewed when the trigger is clicked.
 - **Arrow**: An optional arrow component
@@ -18,8 +35,14 @@ description: Displays rich content in a portal, triggered by a button.
 
 ## Usage
 
-To create a popover, use the `createPopover` builder function. Follow the anatomy or the example
-above to create your popover.
+To create a popover, use the `createPopover` builder function and destructure the returned values.
+
+```svelte
+<script lang="ts">
+  import { createPopover } from '@melt-ui/svelte'
+  const { trigger, content, arrow, close, open } = createPopover()
+</script>
+```
 
 ### Default open state
 
