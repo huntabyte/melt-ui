@@ -33,7 +33,7 @@ At a high level, the minimal anatomy of a popover looks like this:
 - **Arrow**: An optional arrow component
 - **Close**: A button which closes the popover
 
-## Usage
+## Quick Start
 
 To create a popover, use the `createPopover` builder function and destructure the returned values.
 
@@ -43,6 +43,12 @@ To create a popover, use the `createPopover` builder function and destructure th
   const { trigger, content, arrow, close, open } = createPopover()
 </script>
 ```
+
+The `createPopover` function optionally accepts a configuration object, which can be used to control
+the behavior of the popover. The properties of the configuration object are listed in the
+[API Reference](#createpopover) for the `createPopover` function.
+
+## Usage
 
 ### Default open state
 
