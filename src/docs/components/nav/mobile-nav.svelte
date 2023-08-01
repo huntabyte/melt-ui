@@ -10,7 +10,7 @@
 
 	const open = writable(false);
 	const {
-		elements: { trigger, overlay, content, close },
+		elements: { trigger, overlay, content, close, portalled },
 	} = createDialog({
 		open,
 	});
@@ -24,6 +24,7 @@
 	<span class="sr-only">Toggle Menu</span>
 </button>
 {#if $open}
+<div use:melt={$portalled}>
 	<div
 		use:melt={$overlay}
 		class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
@@ -81,6 +82,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 {/if}
 
 <style lang="postcss">
