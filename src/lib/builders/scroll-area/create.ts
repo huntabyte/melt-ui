@@ -43,13 +43,20 @@ export function createScrollArea(props: CreateScrollAreaProps) {
 	});
 
 	const viewport = builder(name('viewport'), {
-		stores: [],
-		returned: () => {
-			return {};
+		stores: [scrollbarXEnabled, scrollbarYEnabled],
+		returned: ([$scrollbarXEnabled, $scrollbarYEnabled]) => {
+			return {
+				style: styleToString({
+					overflowX: $scrollbarXEnabled ? 'scroll' : 'hidden',
+					overflowY: $scrollbarYEnabled ? 'scroll' : 'hidden',
+				}),
+			};
 		},
 		action: (node: HTMLElement) => {
 			const styleEl = document.createElement('style');
-			styleEl.innerHTML = '';
+			styleEl.innerHTML = `
+            __html: [data-melt-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-melt-scroll-area-viewport]::-webkit-scrollbar{display:none}
+            `;
 		},
 	});
 
