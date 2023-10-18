@@ -4,6 +4,11 @@ import type { createTabs } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { TabsComponentEvents } from './events.js';
 
+/**
+ * @category Tabs
+ * @category Props
+ * @interface
+ */
 export type CreateTabsProps = {
 	/**
 	 * The uncontrolled default value of the tabs.

@@ -9,6 +9,11 @@ export type {
 	ListboxOptionProps as ComboboxOptionProps,
 } from '../listbox/types.js';
 
+/**
+ * @category Combobox
+ * @category Props
+ * @interface
+ */
 export type CreateComboboxProps<
 	Value,
 	Multiple extends boolean = false,

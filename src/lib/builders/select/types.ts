@@ -9,6 +9,11 @@ export type {
 	ListboxOptionProps as SelectOptionProps,
 } from '../listbox/types.js';
 
+/**
+ * @category Select
+ * @category Props
+ * @interface
+ */
 export type CreateSelectProps<
 	Value = unknown,
 	Multiple extends boolean = false,

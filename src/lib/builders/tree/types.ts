@@ -2,6 +2,11 @@ import type { ChangeFn } from '$lib/internal/helpers';
 import type { Writable } from 'svelte/store';
 import type { createTreeView } from './create';
 
+/**
+ * @category Tree
+ * @category Props
+ * @interface
+ */
 export type CreateTreeViewProps = {
 	forceVisible?: boolean;
 
@@ -28,8 +33,14 @@ export type CreateTreeViewProps = {
 	onExpandedChange?: ChangeFn<string[]>;
 };
 
+/**
+ * @category Tree
+ */
 export type TreeParts = 'label' | 'item' | 'group';
 
+/**
+ * @category Tree
+ */
 export type ItemDescription = {
 	hasChildren: boolean;
 	childrenIdxs: number[];

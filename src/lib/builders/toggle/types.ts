@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createToggle } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { ToggleComponentEvents } from './events.js';
+
+/**
+ * @category Toggle
+ * @category Props
+ * @interface
+ */
 export type CreateToggleProps = {
 	disabled?: boolean;
 	defaultPressed?: boolean;

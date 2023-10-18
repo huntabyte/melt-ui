@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createPagination } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { PaginationComponentEvents } from './events.js';
+
+/**
+ * @category Pagination
+ * @category Props
+ * @interface
+ */
 export type CreatePaginationProps = {
 	/**
 	 * The total number of items to be paginated.
@@ -46,20 +52,32 @@ export type CreatePaginationProps = {
 	onPageChange?: ChangeFn<number>;
 };
 
+/**
+ * @category Pagination
+ */
 export type Page = {
 	type: 'page';
 	value: number;
 };
 
+/**
+ * @category Pagination
+ */
 export type Ellipsis = {
 	type: 'ellipsis';
 };
 
+/**
+ * @category Pagination
+ */
 export type PageItem = (Page | Ellipsis) & {
 	/** Unique key for the item, to be passed to svelte #each block */
 	key: string;
 };
 
+/**
+ * @category Pagination
+ */
 export type GetPageItemsArgs = {
 	totalPages: number;
 	siblingCount?: number;

@@ -4,12 +4,41 @@ import type { createContextMenu } from './create.js';
 export type { ContextMenuComponentEvents } from './events.js';
 
 // Props
+/**
+ * @category ContextMenu
+ * @category Props
+ * @interface
+ */
 export type CreateContextMenuProps = _Menu['builder'];
+/**
+ * @category ContextMenu
+ * @category Props
+ * @interface
+ */
 export type CreateContextSubmenuProps = _Menu['submenu'];
+/**
+ * @category ContextMenu
+ */
 export type ContextMenuItemProps = _Menu['item'];
+/**
+ * @category ContextMenu
+ * @category Props
+ * @interface
+ */
 export type CreateContextMenuRadioGroupProps = _Menu['radioGroup'];
+/**
+ * @category ContextMenu
+ * @category Props
+ * @interface
+ */
 export type CreateContextMenuCheckboxItemProps = _Menu['checkboxItem'];
+/**
+ * @category ContextMenu
+ */
 export type ContextMenuRadioItemProps = _Menu['radioItem'];
+/**
+ * @category ContextMenu
+ */
 export type ContextMenuRadioItemActionProps = _Menu['radioItemAction'];
 
 // Returns

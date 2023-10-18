@@ -4,6 +4,11 @@ import type { Writable } from 'svelte/store';
 import type { createPinInput } from './create.js';
 export type { PinInputComponentEvents } from './events.js';
 
+/**
+ * @category PinInput
+ * @category Props
+ * @interface
+ */
 export type CreatePinInputProps = {
 	/**
 	 * An optional placeholder to display when the input is empty.

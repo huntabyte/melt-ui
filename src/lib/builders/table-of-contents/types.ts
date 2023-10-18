@@ -22,13 +22,17 @@ export type ScrollFn = (id: string) => void;
 /**
  * Arguments to be passed to the Table of Contents builder.
  *
+ * @category TableOfContents
+ * @category Props
+ * @interface
+ *
  * @typeParam selector - The id of the container in which the content of the page is.
  * @param exclude - A list of headings that should be excluded in the table.
  * @param scrollOffset - The pixel offset that should be added when scrolling to a heading.
  * @param scrollBehaviour - Describes whether the scroll behaviour should be smooth or not.
  * @param activeType - Describes which headings should be considered active.
  */
-export type CreateTableOfContentsArgs = {
+export type CreateTableOfContentsProps = {
 	selector: string;
 	exclude?: Heading[];
 	scrollOffset?: number;

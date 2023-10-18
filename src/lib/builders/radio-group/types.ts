@@ -4,6 +4,11 @@ import type { createRadioGroup } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { RadioGroupComponentEvents } from './events.js';
 
+/**
+ * @category RadioGroup
+ * @category Props
+ * @interface
+ */
 export type CreateRadioGroupProps = {
 	/**
 	 * When `true`, prevents the user from interacting with the radio group.

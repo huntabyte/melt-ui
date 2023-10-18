@@ -11,6 +11,8 @@ type AccordionValue<Multiple extends boolean> = WhenTrue<Multiple, string[], str
 
 /**
  * @category Accordion
+ * @category Props
+ * @interface
  */
 export type CreateAccordionProps<Multiple extends boolean = false> = {
 	/**

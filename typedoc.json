@@ -1,5 +1,7 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["./src/lib/builders/index.ts"],
-	"out": "docs"
+	"out": "docs",
+	"outputFileStrategy": "modules",
+	"expandObjects": true
 }

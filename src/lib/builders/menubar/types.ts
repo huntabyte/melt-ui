@@ -3,6 +3,11 @@ import type { _Menu } from '../menu/index.js';
 import type { createMenubar } from './create.js';
 export type { MenubarComponentEvents } from './events.js';
 // Props
+/**
+ * @category Menubar
+ * @category Props
+ * @interface
+ */
 export type CreateMenubarProps = {
 	/**
 	 * Whether or not the menubar should loop when
@@ -17,12 +22,41 @@ export type CreateMenubarProps = {
 	 */
 	closeOnEscape?: boolean;
 };
+/**
+ * @category Menubar
+ * @category Props
+ * @interface
+ */
 export type CreateMenubarMenuProps = _Menu['builder'];
+/**
+ * @category Menubar
+ * @category Props
+ * @interface
+ */
 export type CreateMenubarSubmenuProps = _Menu['submenu'];
+/**
+ * @category Menubar
+ */
 export type MenubarMenuItemProps = _Menu['item'];
+/**
+ * @category Menubar
+ * @category Props
+ * @interface
+ */
 export type CreateMenuRadioGroupProps = _Menu['radioGroup'];
+/**
+ * @category Menubar
+ * @category Props
+ * @interface
+ */
 export type CreateMenuCheckboxItemProps = _Menu['checkboxItem'];
+/**
+ * @category Menubar
+ */
 export type MenubarRadioItemProps = _Menu['radioItem'];
+/**
+ * @category Menubar
+ */
 export type MenubarRadioItemActionProps = _Menu['radioItemAction'];
 
 // Returns

@@ -4,6 +4,11 @@ import type { Writable } from 'svelte/store';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { CollapsibleComponentEvents } from './events.js';
 
+/**
+ * @category Collapsible
+ * @category Props
+ * @interface
+ */
 export type CreateCollapsibleProps = {
 	/**
 	 * Whether the collapsible is disabled which prevents it from being opened.

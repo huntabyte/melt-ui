@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createDialog } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { DialogComponentEvents } from './events.js';
+
+/**
+ * @category Dialog
+ * @category Props
+ * @interface
+ */
 export type CreateDialogProps = {
 	preventScroll?: boolean;
 	closeOnEscape?: boolean;

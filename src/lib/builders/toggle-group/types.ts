@@ -5,6 +5,11 @@ import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { ToggleGroupComponentEvents } from './events.js';
 export type ToggleGroupType = 'single' | 'multiple';
 
+/**
+ * @category ToggleGroup
+ * @category Props
+ * @interface
+ */
 export type CreateToggleGroupProps<T extends ToggleGroupType = 'single'> = {
 	defaultValue?: T extends 'single' ? string : string[];
 	value?: Writable<string | string[] | undefined>;
@@ -16,6 +21,9 @@ export type CreateToggleGroupProps<T extends ToggleGroupType = 'single'> = {
 	orientation?: Orientation;
 };
 
+/**
+ * @category ToggleGroup
+ */
 export type ToggleGroupItemProps =
 	| {
 			value: string;

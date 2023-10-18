@@ -1,6 +1,11 @@
 import type { BuilderReturn, Orientation } from '$lib/internal/types.js';
 import type { createSeparator } from './create.js';
 
+/**
+ * @category Separator
+ * @category Props
+ * @interface
+ */
 export type CreateSeparatorProps = {
 	/*
 	 * The orientation of the separator.

@@ -4,6 +4,12 @@ import type { Writable } from 'svelte/store';
 import type { createTooltip } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { TooltipComponentEvents } from './events.js';
+
+/**
+ * @category Tooltip
+ * @category Props
+ * @interface
+ */
 export type CreateTooltipProps = {
 	positioning?: FloatingConfig;
 	arrowSize?: number;

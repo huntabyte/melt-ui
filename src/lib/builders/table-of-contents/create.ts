@@ -12,7 +12,7 @@ import { dequal } from 'dequal';
 
 import type {
 	Heading,
-	CreateTableOfContentsArgs,
+	CreateTableOfContentsProps,
 	ElementHeadingLU,
 	HeadingParentsLU,
 	TableOfContentsItem,
@@ -23,7 +23,7 @@ const defaults = {
 	scrollOffset: 0,
 	scrollBehaviour: 'smooth',
 	activeType: 'lowest',
-} satisfies Defaults<CreateTableOfContentsArgs>;
+} satisfies Defaults<CreateTableOfContentsProps>;
 
 /**
  * @param args Provide the arguments for the table of contents builder.
@@ -41,7 +41,7 @@ const defaults = {
  *     - 'lowest-parents': parents of the heading with the lowest visible content are also considered active
  *     - 'highest-parents': parents of the heading with the highest visible content are also considered active
  */
-export function createTableOfContents(args: CreateTableOfContentsArgs) {
+export function createTableOfContents(args: CreateTableOfContentsProps) {
 	const argsWithDefaults = { ...defaults, ...args };
 	const {
 		selector,

@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createSwitch } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { SwitchComponentEvents } from './events.js';
+
+/**
+ * @category Switch
+ * @category Props
+ * @interface
+ */
 export type CreateSwitchProps = {
 	/**
 	 * The uncontrolled default checked status of the switch.

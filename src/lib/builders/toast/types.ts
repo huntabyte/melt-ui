@@ -3,6 +3,11 @@ import type { createToaster } from './create.js';
 export type { ToastComponentEvents } from './events.js';
 export type EmptyType = Record<never, never>;
 
+/**
+ * @category Toast
+ * @category Props
+ * @interface
+ */
 export type CreateToasterProps = {
 	// Time in milliseconds before the toast is automatically closed.
 	// If set to 0, the toast will not be automatically closed.
@@ -10,10 +15,16 @@ export type CreateToasterProps = {
 	type?: 'foreground' | 'background';
 };
 
+/**
+ * @category Toast
+ */
 export type AddToastProps<T = object> = CreateToasterProps & {
 	data: T;
 };
 
+/**
+ * @category Toast
+ */
 export type Toast<T = object> = {
 	id: string;
 	ids: {

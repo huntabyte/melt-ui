@@ -3,12 +3,41 @@ import type { _Menu } from '../menu/index.js';
 import type { createDropdownMenu } from './create.js';
 export type { DropdownMenuComponentEvents } from './events.js';
 // Props
+/**
+ * @category DropdownMenu
+ * @category Props
+ * @interface
+ */
 export type CreateDropdownMenuProps = _Menu['builder'];
+/**
+ * @category DropdownMenu
+ * @category Props
+ * @interface
+ */
 export type CreateDropdownSubmenuProps = _Menu['submenu'];
+/**
+ * @category DropdownMenu
+ */
 export type DropdownMenuItemProps = _Menu['item'];
+/**
+ * @category DropdownMenu
+ * @category Props
+ * @interface
+ */
 export type CreateDropdownMenuRadioGroupProps = _Menu['radioGroup'];
+/**
+ * @category DropdownMenu
+ * @category Props
+ * @interface
+ */
 export type CreateDropdownMenuCheckboxItemProps = _Menu['checkboxItem'];
+/**
+ * @category DropdownMenu
+ */
 export type DropdownMenuRadioItemProps = _Menu['radioItem'];
+/**
+ * @category DropdownMenu
+ */
 export type DropdownMenuRadioItemActionProps = _Menu['radioItemAction'];
 
 // Returns

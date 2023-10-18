@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createSlider } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { SliderComponentEvents } from './events.js';
+
+/**
+ * @category Slider
+ * @category Props
+ * @interface
+ */
 export type CreateSliderProps = {
 	/**
 	 * The uncontrolled default value of the slider.

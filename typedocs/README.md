@@ -1,4 +1,6 @@
-@melt-ui/svelte / [Exports](modules.md)
+**@melt-ui/svelte** ∙ [README](README.md) ∙ [API](exports.md)
+
+***
 
 ![](static/banner.png)
 
@@ -10,6 +12,14 @@
 [![](https://img.shields.io/github/actions/workflow/status/melt-ui/melt-ui/ci.yaml?style=flat)](https://github.com/melt-ui/melt-ui/actions/workflows/ci.yaml)
 ![](https://img.shields.io/github/license/melt-ui/melt-ui?style=flat)
 [![](https://dcbadge.vercel.app/api/server/2QDjZkYunf?style=flat)](https://discord.gg/2QDjZkYunf)
+
+## Contents
+
+- [About](README.md#about)
+- [Getting started](README.md#getting-started)
+- [Contributing](README.md#contributing)
+- [Community](README.md#community)
+- [Similar projects](README.md#similar-projects)
 
 ## About
 
@@ -83,3 +93,7 @@ we'd love to have you there.
 
 Looking for more? Check out the
 [other component library projects available for Svelte](https://sveltesociety.dev/components#design-systems).
+
+***
+
+Generated using [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown) and [TypeDoc](https://typedoc.org/)

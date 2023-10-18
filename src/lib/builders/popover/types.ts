@@ -5,6 +5,11 @@ import type { createPopover } from './create.js';
 import type { BuilderReturn } from '$lib/internal/types.js';
 export type { PopoverComponentEvents } from './events.js';
 
+/**
+ * @category Popover
+ * @category Props
+ * @interface
+ */
 export type CreatePopoverProps = {
 	/**
 	 * The positioning configuration for the floating element.

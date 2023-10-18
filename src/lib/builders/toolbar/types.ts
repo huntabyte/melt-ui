@@ -5,11 +5,19 @@ import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { ToolbarComponentEvents } from './events.js';
 export type ToolbarGroupType = 'single' | 'multiple';
 
+/**
+ * @category Toolbar
+ * @category Props
+ * @interface
+ */
 export type CreateToolbarProps = {
 	loop?: boolean;
 	orientation?: Orientation;
 };
 
+/**
+ * @category Toolbar
+ */
 export type CreateToolbarGroupProps<T extends ToolbarGroupType = 'single'> = {
 	defaultValue?: T extends 'single' ? string : string[];
 	value?: Writable<string | string[] | undefined>;
@@ -18,6 +26,9 @@ export type CreateToolbarGroupProps<T extends ToolbarGroupType = 'single'> = {
 	disabled?: boolean;
 };
 
+/**
+ * @category Toolbar
+ */
 export type ToolbarGroupItemProps =
 	| {
 			value: string;

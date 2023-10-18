@@ -4,6 +4,12 @@ import type { Writable } from 'svelte/store';
 import type { createLinkPreview } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { LinkPreviewComponentEvents } from './events.js';
+
+/**
+ * @category LinkPreview
+ * @category Props
+ * @interface
+ */
 export type CreateLinkPreviewProps = {
 	/**
 	 * Options for positioning the popover menu.

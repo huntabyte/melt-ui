@@ -7,6 +7,11 @@ const imageLoadingStatus = ['loading', 'loaded', 'error'] as const;
 
 export type ImageLoadingStatus = (typeof imageLoadingStatus)[number];
 
+/**
+ * @category Avatar
+ * @category Props
+ * @interface
+ */
 export type CreateAvatarProps = {
 	/**
 	 * The source of the image to display.

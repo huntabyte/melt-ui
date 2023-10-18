@@ -4,6 +4,11 @@ import type { Writable } from 'svelte/store';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { CheckboxComponentEvents } from './events.js';
 
+/**
+ * @category Checkbox
+ * @category Props
+ * @interface
+ */
 export type CreateCheckboxProps = {
 	/**
 	 * When `true`, the checkbox will be disabled.

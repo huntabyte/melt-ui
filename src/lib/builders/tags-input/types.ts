@@ -3,6 +3,12 @@ import type { Writable } from 'svelte/store';
 import type { createTagsInput } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 export type { TagsInputComponentEvents } from './events.js';
+
+/**
+ * @category TagsInput
+ * @category Props
+ * @interface
+ */
 export type CreateTagsInputProps = {
 	placeholder?: string;
 	disabled?: boolean;
@@ -52,11 +58,17 @@ export type CreateTagsInputProps = {
 
 export type Blur = 'nothing' | 'add' | 'clear';
 
+/**
+ * @category TagsInput
+ */
 export type Tag = {
 	id: string;
 	value: string;
 };
 
+/**
+ * @category TagsInput
+ */
 export type TagProps = {
 	id: string;
 	value: string;
@@ -64,8 +76,19 @@ export type TagProps = {
 	editable?: boolean;
 };
 
+/**
+ * @category TagsInput
+ */
 export type UpdateTag = (tag: Tag) => (Tag | never) | Promise<Tag | never>;
+
+/**
+ * @category TagsInput
+ */
 export type RemoveTag = (tag: Tag) => (boolean | never) | Promise<boolean | never>;
+
+/**
+ * @category TagsInput
+ */
 export type AddTag = (tag: string) => (Tag | string | never) | Promise<Tag | string | never>;
 
 export type TagsInput = BuilderReturn<typeof createTagsInput>;

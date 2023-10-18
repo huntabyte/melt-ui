@@ -5,17 +5,28 @@ import type { createListbox } from './create.js';
 import type { FloatingConfig } from '$lib/internal/actions/index.js';
 export type { ListboxComponentEvents } from './events.js';
 
+/**
+ * @category Listbox
+ */
 export type ListboxOption<Value = unknown> = {
 	value: Value;
 	label?: string;
 };
 
+/**
+ * @category Listbox
+ */
 export type ListboxSelected<Multiple extends boolean, Value> = WhenTrue<
 	Multiple,
 	ListboxOption<Value>[],
 	ListboxOption<Value>
 >;
 
+/**
+ * @category Listbox
+ * @category Props
+ * @interface
+ */
 export type CreateListboxProps<
 	Value = unknown,
 	Multiple extends boolean = false,

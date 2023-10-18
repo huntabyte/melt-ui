@@ -3,6 +3,11 @@ import type { Writable } from 'svelte/store';
 import type { createProgress } from './create.js';
 import type { ChangeFn } from '$lib/internal/helpers/index.js';
 
+/**
+ * @category Progress
+ * @category Props
+ * @interface
+ */
 export type CreateProgressProps = {
 	/**
 	 * The uncontrolled default value of the progress.

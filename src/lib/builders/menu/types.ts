@@ -4,6 +4,11 @@ import type { ChangeFn } from '$lib/internal/helpers/index.js';
 import type { Writable } from 'svelte/store';
 import type { createMenuBuilder } from './create.js';
 
+/**
+ * @category Menu
+ * @category Props
+ * @interface
+ */
 export type _CreateMenuProps = {
 	/**
 	 * Options for positioning the popover menu.
@@ -105,6 +110,11 @@ export type _CreateSubmenuProps = Pick<_CreateMenuProps, 'arrowSize' | 'position
 	disabled?: boolean;
 };
 
+/**
+ * @category Menu
+ * @category Props
+ * @interface
+ */
 export type _CreateRadioGroupProps = {
 	defaultValue?: string;
 	value?: Writable<string>;
@@ -115,6 +125,11 @@ export type _ItemProps = {
 	disabled?: boolean;
 };
 
+/**
+ * @category Menu
+ * @category Props
+ * @interface
+ */
 export type _CheckboxItemProps = _ItemProps & {
 	defaultChecked?: boolean | 'indeterminate';
 	checked?: Writable<boolean | 'indeterminate'>;
