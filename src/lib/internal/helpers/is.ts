@@ -48,3 +48,7 @@ export function isContentEditable(element: unknown): element is HTMLElement {
 	if (!isHTMLElement(element)) return false;
 	return element.isContentEditable;
 }
+
+export function isUndefined(value: unknown): value is undefined {
+	return value === undefined;
+}

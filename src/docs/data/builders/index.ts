@@ -4,6 +4,7 @@ import { avatarData } from './avatar.js';
 import { checkboxData } from './checkbox.js';
 import { collapsibleData } from './collapsible.js';
 import { comboboxData } from './combobox.js';
+import { commandMenuData } from './command-menu.js';
 import { contextMenuData } from './context-menu.js';
 import { dialogData } from './dialog.js';
 import { dropdownMenuData } from './dropdown-menu.js';
@@ -35,6 +36,7 @@ export const builderList = [
 	'checkbox',
 	'collapsible',
 	'combobox',
+	'command-menu',
 	'context-menu',
 	'dialog',
 	'dropdown-menu',
@@ -81,6 +83,7 @@ export const data: Builders = {
 	checkbox: checkboxData,
 	collapsible: collapsibleData,
 	combobox: comboboxData,
+	'command-menu': commandMenuData,
 	'context-menu': contextMenuData,
 	dialog: dialogData,
 	'dropdown-menu': dropdownMenuData,
