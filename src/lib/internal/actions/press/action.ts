@@ -3,9 +3,12 @@ import {
 	isElement,
 	type Callback,
 	restoreTextSelection,
+	isHTMLAnchorElement,
+	isHTMLOrSVGElement,
+	addEventListener,
 } from '$lib/internal/helpers';
 import type { HTMLAttributes } from 'svelte/elements';
-import { get, writable, type Writable } from 'svelte/store';
+import { derived, get, writable, type Writable } from 'svelte/store';
 
 export type PointerType = 'mouse' | 'pen' | 'touch' | 'keyboard' | 'virtual' | null;
 
@@ -122,7 +125,7 @@ export type PressResult = {
 };
 
 export type EventBase = {
-	currentTarget: EventTarget;
+	currentTarget: EventTarget | null;
 	shiftKey: boolean;
 	ctrlKey: boolean;
 	metaKey: boolean;
@@ -307,6 +310,90 @@ export function createPress(props: PressActionProps): PressResult {
 			cancel(e);
 		}
 	}
+
+	function onKeyUp(e: KeyboardEvent) {
+		const $state = get(state);
+
+		if ($state.isPressed && isValidKeyboardEvent(e, $state.target)) {
+			if (shouldPreventDefaultKeyboard(e.target as Element, e.key)) {
+				e.preventDefault();
+			}
+
+			const target = e.target;
+			if (!isElement(target) || !isHTMLOrSVGElement($state.target)) return;
+
+			const shouldStopPropagation = triggerPressEnd(
+				createEvent($state.target, e),
+				'keyboard',
+				$state.target.contains(target)
+			);
+			removeAllListeners();
+
+			if (shouldStopPropagation) {
+				e.stopPropagation();
+			}
+
+			// If a link was triggered with a key other than Enter, open the URL ourselves.
+			// This means the link has a role override, and the default browser behavior
+			// only applies when using the Enter key.
+			if (
+				e.key !== 'Enter' &&
+				isHTMLAnchorElement($state.target) &&
+				$state.target.contains(target) &&
+				!e[LINK_CLICKED]
+			) {
+				// Store a hidden property on the event so we only trigger link click once,
+				// even if there are multiple usePress instances attached to the element.
+				e[LINK_CLICKED] = true;
+				openLink(state.target, e, false);
+			}
+
+			state.isPressed = false;
+			state.metaKeyEvents?.delete(e.key);
+		} else if (e.key === 'Meta' && state.metaKeyEvents?.size) {
+			// If we recorded keydown events that occurred while the Meta key was pressed,
+			// and those haven't received keyup events already, fire keyup events ourselves.
+			// See comment above for more info about the macOS bug causing this.
+			let events = state.metaKeyEvents;
+			state.metaKeyEvents = null;
+			for (let event of events.values()) {
+				state.target.dispatchEvent(new KeyboardEvent('keyup', event));
+			}
+		}
+	}
+
+	const handlers = {
+		onKeyDown(e: KeyboardEvent) {
+			const currentTarget = e.currentTarget;
+			const target = e.target;
+			if (!isHTMLOrSVGElement(currentTarget) || !isHTMLOrSVGElement(target)) return;
+			const $state = get(state);
+
+			if (isValidKeyboardEvent(e, currentTarget) && currentTarget.contains(target)) {
+				if (shouldPreventDefaultKeyboard(target, e.key)) {
+					e.preventDefault();
+				}
+
+				// If the event is repeating, it may have started on a different element
+				// after which focus moved to the current element. Ignore these events and
+				// only handle the first key down event.
+				let shouldStopPropagation = true;
+				if (!$state.isPressed && !e.repeat) {
+					state.update((prev) => ({
+						...prev,
+						target: currentTarget,
+						isPressed: true,
+						shouldStopPropagation: triggerPressStart(e, 'keyboard'),
+					}));
+
+					const listener = addEventListener(document, 'keyup', onKeyUp);
+					listeners.push();
+				}
+			} else if (e.key === 'Meta') {
+				state.update((prev) => ({ ...prev, metaKeyEvents: new Map() }));
+			}
+		},
+	};
 }
 
 function createEvent(target: FocusableElement, e: EventBase): EventBase {
@@ -317,4 +404,57 @@ function createEvent(target: FocusableElement, e: EventBase): EventBase {
 		metaKey: e.metaKey,
 		altKey: e.altKey,
 	};
+}
+
+function isValidKeyboardEvent(event: KeyboardEvent, currentTarget: EventTarget | null): boolean {
+	const { key, code } = event;
+	const element = currentTarget as HTMLElement;
+	const role = element.getAttribute('role');
+	// Accessibility for keyboards. Space and Enter only.
+	// "Spacebar" is for IE 11
+	return (
+		(key === 'Enter' || key === ' ' || key === 'Spacebar' || code === 'Space') &&
+		!(
+			(element instanceof HTMLInputElement && !isValidInputKey(element, key)) ||
+			element instanceof HTMLTextAreaElement ||
+			element.isContentEditable
+		) &&
+		// Links should only trigger with Enter key
+		!((role === 'link' || (!role && isHTMLAnchorElement(element))) && key !== 'Enter')
+	);
+}
+
+const nonTextInputTypes = new Set([
+	'checkbox',
+	'radio',
+	'range',
+	'color',
+	'file',
+	'image',
+	'button',
+	'submit',
+	'reset',
+]);
+
+function shouldPreventDefaultKeyboard(target: Element, key: string) {
+	if (target instanceof HTMLInputElement) {
+		return !isValidInputKey(target, key);
+	}
+
+	if (target instanceof HTMLButtonElement) {
+		return target.type !== 'submit' && target.type !== 'reset';
+	}
+
+	if (isHTMLAnchorElement(target)) {
+		return false;
+	}
+
+	return true;
+}
+
+function isValidInputKey(target: HTMLInputElement, key: string) {
+	// Only space should toggle checkboxes and radios, not enter.
+	return target.type === 'checkbox' || target.type === 'radio'
+		? key === ' '
+		: nonTextInputTypes.has(target.type);
 }

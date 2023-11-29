@@ -12,6 +12,10 @@ export function isHTMLElement(element: unknown): element is HTMLElement {
 	return element instanceof HTMLElement;
 }
 
+export function isHTMLAnchorElement(target: Element): target is HTMLAnchorElement {
+	return target.tagName === 'A' && target.hasAttribute('href');
+}
+
 export function isSVGElement(element: unknown): element is SVGElement {
 	return element instanceof SVGElement;
 }
