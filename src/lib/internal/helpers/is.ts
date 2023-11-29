@@ -66,6 +66,9 @@ export function isObject(value: unknown): value is Record<string, unknown> {
 	return value !== null && typeof value === 'object';
 }
 
+// Original licensing for the following methods can be found in the
+// NOTICE file in the root directory of this source tree.
+
 function testUserAgent(re: RegExp) {
 	if (typeof window === 'undefined' || window.navigator == null) return false;
 	return (
@@ -116,10 +119,6 @@ export function isAndroid() {
 export function isFirefox() {
 	return testUserAgent(/Firefox/i);
 }
-
-// Original licensing for the following method can be found in the
-// NOTICE file in the root directory of this source tree.
-// See https://github.com/facebook/react/blob/3c713d513195a53788b3f8bb4b70279d68b15bcc/packages/react-interactions/events/src/dom/shared/index.js#L74-L87
 
 // Keyboards, Assistive Technologies, and element.click() all produce a "virtual"
 // click event. This is a method of inferring such clicks. Every browser except
