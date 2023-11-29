@@ -12,6 +12,14 @@ export function isHTMLElement(element: unknown): element is HTMLElement {
 	return element instanceof HTMLElement;
 }
 
+export function isSVGElement(element: unknown): element is SVGElement {
+	return element instanceof SVGElement;
+}
+
+export function isHTMLOrSVGElement(element: unknown): element is HTMLElement | SVGElement {
+	return isHTMLElement(element) || isSVGElement(element);
+}
+
 export function isHTMLInputElement(element: unknown): element is HTMLInputElement {
 	return element instanceof HTMLInputElement;
 }
@@ -65,9 +73,6 @@ export function isNumberString(value: string) {
 export function isObject(value: unknown): value is Record<string, unknown> {
 	return value !== null && typeof value === 'object';
 }
-
-// Original licensing for the following methods can be found in the
-// NOTICE file in the root directory of this source tree.
 
 function testUserAgent(re: RegExp) {
 	if (typeof window === 'undefined' || window.navigator == null) return false;
