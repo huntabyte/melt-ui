@@ -45,6 +45,19 @@ describe('Dropdown Menu (Default)', () => {
 		expect(menu).not.toBeVisible();
 	});
 
+	test('Refocuses the trigger when menu closed with keyboard', async () => {
+		const { user, trigger, getByTestId } = setup();
+		const menu = getByTestId('menu');
+
+		expect(menu).not.toBeVisible();
+		await user.click(trigger);
+		expect(menu).toBeVisible();
+
+		await user.keyboard(kbd.ESCAPE);
+		expect(menu).not.toBeVisible();
+		expect(trigger).toHaveFocus();
+	});
+
 	test.each(OPEN_KEYS)('Opens when %s is pressed', async (key) => {
 		const { user, trigger, getByTestId } = setup();
 		const menu = getByTestId('menu');
@@ -301,6 +314,18 @@ describe('Dropdown Menu (forceVisible)', () => {
 
 		await user.click(trigger);
 		await waitFor(() => expect(queryByTestId('menu')).toBeNull());
+	});
+
+	test('Refocuses the trigger when menu closed with keyboard', async () => {
+		const { queryByTestId, user, trigger } = setupForceVis();
+
+		expect(queryByTestId('menu')).toBeNull();
+		await user.click(trigger);
+		await waitFor(() => expect(queryByTestId('menu')).not.toBeNull());
+
+		await user.keyboard(kbd.ESCAPE);
+		await waitFor(() => expect(queryByTestId('menu')).toBeNull());
+		expect(trigger).toHaveFocus();
 	});
 
 	test.each(OPEN_KEYS)('Opens when %s is pressed', async (key) => {
