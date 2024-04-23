@@ -1,5 +1,17 @@
 # @melt-ui/svelte
 
+## 0.78.0
+
+### Minor Changes
+
+- Fixed escape keydown behavior by using stacks to correctly handle nested floating elements ([#1142](https://github.com/melt-ui/melt-ui/pull/1142))
+
+- Changed `closeOnEscape` builder prop to `escapeBehavior` to provide even further fine-grained control over escape behavior in builders (closes #1142) ([#1142](https://github.com/melt-ui/melt-ui/pull/1142))
+
+### Patch Changes
+
+- Fixed bug where tooltip would close while the pointer is still inside trigger (closes #886) ([#1158](https://github.com/melt-ui/melt-ui/pull/1158))
+
 ## 0.77.0
 
 ### Minor Changes
